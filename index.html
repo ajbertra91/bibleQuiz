@@ -16,12 +16,13 @@
       <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
   
-    <ui-view name="Application"></ui-view>
+    <div ui-view name="Application"></div>
+    <div>Hello</div>
 
     <script src="assets/jspm_packages/system.js"></script>
     <script src="assets/config.js"></script>
     <script>
-      System.import('./assets/scripts/main');
+      System.import('./assets/scripts/main')
     </script>
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <!--script>

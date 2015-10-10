@@ -1,6 +1,8 @@
-import angular from 'angular'
-import AppModule from 'application/AppModule'
+'use strict'
 
-angular.element(document).ready(function() {
-  angular.bootstrap(document, ['Application']);
-});
+// import angular from 'angular'
+// import AppModule from 'application/AppModule'
+
+// angular.element(document).ready(function() {
+//   angular.bootstrap(document, ['Application']);
+// });
