@@ -1,0 +1,30 @@
+{
+  "name": "ngtemplate",
+  "version": "0.0.1",
+  "description": "Angular1.x Gulp JSPM ES6 RxJS template",
+  "main": "index.js",
+  "dependencies": {
+    "jspm": "^0.16.12"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ajbertra91/ngTemplate.git"
+  },
+  "keywords": [
+    "Angular1.x",
+    "Gulp",
+    "JSPM",
+    "ES6",
+    "RxJS"
+  ],
+  "author": "Adam Bertrand",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ajbertra91/ngTemplate/issues"
+  },
+  "homepage": "https://github.com/ajbertra91/ngTemplate#readme"
+}
