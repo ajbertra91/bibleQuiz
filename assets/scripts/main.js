@@ -15,3 +15,11 @@ let animals = [
 let dogs = animals.filter((x) => x.species === 'dog')
 
 console.log('dogs: ', dogs)
+
+import angular from 'angular'
+import 'angular-ui-router'
+
+angular.element(document).ready(function() {
+  angular.bootstrap(document, [mainModule.name])
+})
+// angluar.module('myApp', [])

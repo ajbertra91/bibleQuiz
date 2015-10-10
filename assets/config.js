@@ -14,6 +14,8 @@ System.config({
   },
 
   map: {
+    "angular": "npm:angular@1.4.7",
+    "angulare-ui-router": "npm:angular-ui-router@0.2.15",
     "babel": "npm:babel-core@5.8.25",
     "babel-runtime": "npm:babel-runtime@5.8.25",
     "core-js": "npm:core-js@1.2.1",
@@ -25,6 +27,12 @@ System.config({
     },
     "github:jspm/nodelibs-util@0.1.0": {
       "util": "npm:util@0.10.3"
+    },
+    "npm:angular-ui-router@0.2.15": {
+      "process": "github:jspm/nodelibs-process@0.1.2"
+    },
+    "npm:angular@1.4.7": {
+      "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:assert@1.3.0": {
       "util": "npm:util@0.10.3"

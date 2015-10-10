@@ -31,5 +31,11 @@
   },
   "github:jspm/nodelibs-util@0.1.0": {
     "util": "npm:util@^0.10.3"
+  },
+  "npm:angular@1.4.7": {
+    "process": "github:jspm/nodelibs-process@^0.1.0"
+  },
+  "npm:angular-ui-router@0.2.15": {
+    "process": "github:jspm/nodelibs-process@^0.1.0"
   }
 }
