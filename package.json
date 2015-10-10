@@ -26,5 +26,16 @@
   "bugs": {
     "url": "https://github.com/ajbertra91/ngTemplate/issues"
   },
-  "homepage": "https://github.com/ajbertra91/ngTemplate#readme"
+  "homepage": "https://github.com/ajbertra91/ngTemplate#readme",
+  "jspm": {
+    "directories": {
+      "baseURL": "assets"
+    },
+    "dependencies": {},
+    "devDependencies": {
+      "babel": "npm:babel-core@^5.8.24",
+      "babel-runtime": "npm:babel-runtime@^5.8.24",
+      "core-js": "npm:core-js@^1.1.4"
+    }
+  }
 }
