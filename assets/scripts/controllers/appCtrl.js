@@ -3,4 +3,4 @@ const appCtrl = () => {
 }
 
 
-export appCtrl
+export default appCtrl
