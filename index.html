@@ -10,21 +10,19 @@
 
     <link rel="stylesheet" href="assets/styles/main.css">
 
+  </head>
+  <body>
+    <!--[if lt IE 9]>
+      <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+  
+    <ui-view name="Application"></ui-view>
+
     <script src="assets/jspm_packages/system.js"></script>
     <script src="assets/config.js"></script>
-
     <script>
       System.import('./assets/scripts/main');
     </script>
-
-  </head>
-  <body>
-    <!--[if lt IE 8]>
-      <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
-
-    <div ui-view></div>
-
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <!--script>
       (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
