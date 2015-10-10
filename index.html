@@ -8,7 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
-    <link rel="stylesheet" href="assets/styles/main.css">
+    <link rel="stylesheet" href="./assets/styles/main.css">
+    <!--script src="./assets/jspm_packages/npm/angular@1.4.7/angular.js"></script-->
 
   </head>
   <body>
@@ -18,10 +19,10 @@
   
     <ui-view name="Application">Ugh</ui-view>
 
-    <script src="assets/jspm_packages/system.js"></script>
-    <script src="assets/config.js"></script>
+    <script src="./assets/jspm_packages/system.js"></script>
+    <script src="./assets/config.js"></script>
     <script>
-      System.import('./assets/scripts/main')
+      System.import('./assets/scripts/main').catch(console.error.bind(console))
     </script>
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <!--script>
