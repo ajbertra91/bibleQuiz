@@ -4,9 +4,12 @@
   "description": "Angular1.x Gulp JSPM ES6 RxJS template",
   "main": "index.js",
   "dependencies": {
+    "gulp": "^3.9.0",
     "jspm": "^0.16.12"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "browser-sync": "^2.9.11"
+  },
   "scripts": {
     "test": "test"
   },
@@ -28,9 +31,6 @@
   },
   "homepage": "https://github.com/ajbertra91/ngTemplate#readme",
   "jspm": {
-    "directories": {
-      "baseURL": "assets"
-    },
     "dependencies": {
       "angular": "npm:angular@^1.4.7",
       "angular-ui-router": "npm:angular-ui-router@^0.2.15"
