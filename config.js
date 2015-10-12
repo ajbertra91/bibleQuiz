@@ -1,22 +1,19 @@
 System.config({
-  "baseURL": "/",
-  "transpiler": "babel",
-  "babelOptions": {
+  baseURL: "/",
+  defaultJSExtensions: true,
+  transpiler: "babel",
+  babelOptions: {
     "optional": [
       "runtime",
       "optimisation.modules.system"
     ]
   },
-  "paths": {
-    "github:*": "jspm_packages/github/*.js",
-    "npm:*": "jspm_packages/npm/*.js",
-    "*": "*.js"
+  paths: {
+    "github:*": "jspm_packages/github/*",
+    "npm:*": "jspm_packages/npm/*"
   },
-  "defaultJSExtensions": true
-});
 
-System.config({
-  "map": {
+  map: {
     "angular": "npm:angular@1.4.7",
     "angular-ui-router": "npm:angular-ui-router@0.2.15",
     "babel": "npm:babel-core@5.8.25",
@@ -60,4 +57,3 @@ System.config({
     }
   }
 });
-
