@@ -1,6 +1,6 @@
 import 'angular-ui-router'
 import { AppCtrl } from '../controllers/appCtrl'
-import layout from '../../views/layout.html!'
+import layout from '../../templates/layout.html!'
 
 const AppModule = angular.module('AppModule', ['ui.router'])
   .config(($stateProvider) => {
