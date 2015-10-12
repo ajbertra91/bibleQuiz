@@ -1,6 +1,6 @@
 import 'angular-ui-router'
 import { default as AppCtrl } from '../controllers/appCtrl'
-import layout from '../../views/layout.html!'
+import layout from '../../templates/layout.html!'
 
 console.log('AppCtrl: ', AppCtrl);
 console.log('layout: ', layout);
