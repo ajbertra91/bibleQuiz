@@ -1,8 +1,8 @@
 'use strict'
 
-const AppCtrl = ($scope) => {
+const AppCtrl = () => {
   this.name = 'Adam'
-  console.log('from inside the appCtrl')
+  console.log('this.name: ', this.name);
 }
 
 console.log('AppCtrl: ', AppCtrl)
