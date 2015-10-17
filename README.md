@@ -1,2 +1,2 @@
 # ngTemplate
-JSPM, ES6, Angular1.x, RxJS, Gulp in ES6 -- template
+JSPM, ES6, Reactjs, RxJS, Gulp in ES6 -- template

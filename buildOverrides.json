@@ -1,0 +1,17 @@
+{
+  "siteTitle": "ngTemplate",
+  "platform": "desktop",
+  "environment": "development",
+  "debug": true,
+  "minify": false,
+  "liveReload": true,
+  "open": true,
+  "port": 8000,
+  "development": {
+    "domain": "localhost",
+    "apiRoot": "http://localhost:8000/api",
+    "assetsRoot": "/",
+    "socketUrl": "http://localhost:8888",
+    "protocol": "http:"
+  }
+}
