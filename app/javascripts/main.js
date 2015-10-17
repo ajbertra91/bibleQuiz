@@ -1,3 +1,2 @@
 'use strict';
-
-console.log('ready');
+import Cycle from '@cycle/core'
