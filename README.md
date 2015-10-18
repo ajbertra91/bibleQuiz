@@ -1,2 +1,4 @@
-# ngTemplate
-JSPM, ES6, Reactjs, RxJS, Gulp in ES6 -- template
+# cycleTemplate
+
+###Stack
+npm, JSPM, Babel, Cycle.js (with RxJS), Gulp (in ES6)
