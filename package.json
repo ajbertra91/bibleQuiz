@@ -1,7 +1,7 @@
 {
-  "name": "cycletemplate",
+  "name": "biblequiz",
   "version": "0.0.1",
-  "description": "Reactjs Gulp JSPM ES6 RxJS template",
+  "description": "simple quiz game",
   "main": "index.js",
   "dependencies": {
     "babel": "^5.8.23",
@@ -31,7 +31,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ajbertra91/ngTemplate.git"
+    "url": "git+https://github.com/ajbertra91/bibleQuiz.git"
   },
   "keywords": [
     "Reactjs",
@@ -43,9 +43,9 @@
   "author": "Adam Bertrand",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ajbertra91/ngTemplate/issues"
+    "url": "https://github.com/ajbertra91/bibleQuiz/issues"
   },
-  "homepage": "https://github.com/ajbertra91/ngTemplate#readme",
+  "homepage": "https://github.com/ajbertra91/bibleQuiz#readme",
   "jspm": {
     "configFile": "jspm.config.js",
     "dependencies": {
