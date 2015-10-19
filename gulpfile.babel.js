@@ -3,7 +3,6 @@ import loadPlugins from 'gulp-load-plugins';
 import yargs from 'yargs';
 import runSequence from 'run-sequence';
 import buildOverridesJson from './buildOverrides';
-import merge from 'merge-stream';
 
 let 
   plugins = gulp.plugins = loadPlugins({lazy: false})
@@ -12,7 +11,6 @@ let
 ;
 
 gulp.plugins.runSequence = runSequence;
-gulp.plugins.merge = merge;
 
 gulp.buildOpts = {
   siteTitle: argv.siteTitle ? argv.siteTitle : buildOverrides.siteTitle ? buildOverrides.siteTitle : 'Sports Technologies Inc',
@@ -24,7 +22,7 @@ gulp.buildOpts = {
   open: argv.open == 'false' ? false : buildOverrides.open == false ? false : true,
   port: argv.port ? argv.port : buildOverrides.port ? buildOverrides.port : 8000,
   appConstants: buildOverrides.appConstants ? buildOverrides.appConstants : null
-}
+};
 
 if(buildOverrides.environment && buildOverrides[buildOverrides.environment]){
   gulp.buildOpts.domain = buildOverrides[buildOverrides.environment].domain;

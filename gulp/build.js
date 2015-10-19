@@ -8,10 +8,13 @@ import gulp from 'gulp';
 let {plugins} = gulp;
 
 export default () => {
-  return plugins.runSequence([
+  return plugins.runSequence(
+    ['clean']
+    ,[
     'scripts',
     'css',
     'fonts',
     'images'
-    ], 'html');
+    ]
+    ,['html']);
 }

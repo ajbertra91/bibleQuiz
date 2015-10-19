@@ -1,5 +1,5 @@
 {
-  "siteTitle": "ngTemplate",
+  "siteTitle": "Ultimate Coach Fantasy",
   "platform": "desktop",
   "environment": "development",
   "debug": true,
@@ -13,5 +13,6 @@
     "assetsRoot": "/",
     "socketUrl": "http://localhost:8888",
     "protocol": "http:"
-  }
+  },
+  "version": "1.0.0"  
 }

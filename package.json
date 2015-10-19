@@ -1,5 +1,5 @@
 {
-  "name": "ngtemplate",
+  "name": "cycletemplate",
   "version": "0.0.1",
   "description": "Reactjs Gulp JSPM ES6 RxJS template",
   "main": "index.js",
@@ -21,10 +21,10 @@
     "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "^1.4.1",
     "gulp-webserver": "^0.9.1",
+    "jspm": "^0.16.12",
     "merge-stream": "^1.0.0",
     "run-sequence": "^1.1.4",
-    "yargs": "^3.26.0",
-    "jspm": "^0.16.12"
+    "yargs": "^3.26.0"
   },
   "scripts": {
     "test": "test"
@@ -47,6 +47,7 @@
   },
   "homepage": "https://github.com/ajbertra91/ngTemplate#readme",
   "jspm": {
+    "configFile": "jspm.config.js",
     "dependencies": {
       "cycleCore": "npm:@cycle/core@^4.0.0",
       "cycleDom": "npm:@cycle/dom@^6.0.0",

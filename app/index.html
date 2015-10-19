@@ -8,9 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
-    <link rel="stylesheet" href="./app/stylesheets/main.css">
-
-    <script src="jspm_packages/system.js"></script>
+    <!--link rel="stylesheet" href="./app/stylesheets/main.css"-->
+    <link rel="stylesheet" href="<!-- @echo assetsRoot --><!-- @echo platform -->.css"/>
+    <script type="text/javascript" src="<!-- @echo assetsRoot --><!-- @echo platform -->.js"></script>
 
   </head>
   <body>
@@ -20,10 +20,6 @@
   
     <div id="app"></div>
 
-    <script src="config.js"></script>
-    <script>
-      System.import('./app/javascripts/main')
-    </script>
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <!--script>
       (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=

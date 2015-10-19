@@ -18,3 +18,4 @@ export default () => {
     .pipe(plugins.rename(buildOpts.platform + '.css'))
     .pipe(gulp.dest('build/'));
 }
+

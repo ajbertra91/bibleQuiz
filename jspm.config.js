@@ -10,7 +10,9 @@ System.config({
   },
   paths: {
     "github:*": "jspm_packages/github/*",
-    "npm:*": "jspm_packages/npm/*"
+    "npm:*": "jspm_packages/npm/*",
+    "templates/*": "app/templates/*.html",
+    "app/*": "app/javascripts/*.js"
   },
 
   map: {
@@ -21,8 +23,6 @@ System.config({
     "core-js": "npm:core-js@1.2.1",
     "cycleCore": "npm:@cycle/core@4.0.0",
     "cycleDom": "npm:@cycle/dom@6.0.0",
-    "react": "npm:react@0.14.0",
-    "router": "npm:angular-new-router@0.5.3",
     "text": "github:systemjs/plugin-text@0.0.2",
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.3.0"
