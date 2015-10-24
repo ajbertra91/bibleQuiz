@@ -16,6 +16,8 @@ System.config({
   },
 
   map: {
+    "@cycle/core": "npm:@cycle/core@4.0.0",
+    "@cycle/dom": "npm:@cycle/dom@6.0.0",
     "angular": "npm:angular@1.4.7",
     "angular-ui-router": "npm:angular-ui-router@0.2.15",
     "babel": "npm:babel-core@5.8.25",
