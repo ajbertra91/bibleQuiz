@@ -6,7 +6,7 @@
 
 import gulp from 'gulp';
 
-export default [['build'], function(){
+export default [['clean','build'], function(){
   gulp.watch('app/javascripts/**/*', ['scripts']);
   gulp.watch('app/templates/**/*', ['scripts']);
   gulp.watch('app/stylesheets/**/*', ['css']);

@@ -13,7 +13,7 @@ let
 gulp.plugins.runSequence = runSequence;
 
 gulp.buildOpts = {
-  siteTitle: argv.siteTitle ? argv.siteTitle : buildOverrides.siteTitle ? buildOverrides.siteTitle : 'Sports Technologies Inc',
+  siteTitle: argv.siteTitle ? argv.siteTitle : buildOverrides.siteTitle ? buildOverrides.siteTitle : 'Adam Bertrand',
   platform: argv.platform ? argv.platform : buildOverrides.platform ? buildOverrides.platform : 'desktop',
   environment: argv.environment ? argv.environment : buildOverrides.environment ? buildOverrides.environment : 'development',
   debug: argv.debug == 'false' ? false : buildOverrides.debug == false ? false : true,
@@ -34,7 +34,7 @@ if(buildOverrides.environment && buildOverrides[buildOverrides.environment]){
 
 console.log('\n');
 console.log('|------------------------------|');
-console.log('| ngTemplate GULP RUNNING WITH |');
+console.log('|      GULP RUNNING WITH       |');
 console.log('|------------------------------|');
 console.log('\n');
 console.log(JSON.stringify(gulp.buildOpts, null, 2));

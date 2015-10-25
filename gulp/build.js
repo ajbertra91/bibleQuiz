@@ -9,12 +9,12 @@ let {plugins} = gulp;
 
 export default () => {
   return plugins.runSequence(
-    ['clean']
-    ,[
-    'scripts',
-    'css',
-    'fonts',
-    'images'
+    [
+      'clean',
+      'scripts',
+      'css',
+      'fonts',
+      'images'
     ]
     ,['html']);
 }
