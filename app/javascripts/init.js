@@ -5,12 +5,51 @@ import {log} from './helpers'
 
 document.addEventListener("DOMContentLoaded", function() {
 
+  // function labelSlider(responses) {
+  //   function intent(DOM) {
+  //     return {
+  //       changeValue$: DOM.select('.slider').events('input').map(ev => ev.target.value);
+  //     }
+  //   } 
+  //   function model(context, actions) {
+  //     let initialValue$ = context.props.get('initial').first();
+  //     let value$ = initialValue$.concat(newValue$);
+  //     let props$ = context.props.getAll();
+  //     return Rx.Observable.combineLatest(props$, value$, (props, value) => { return {props,value}; });
+  //   }
+  //   function view(state$) {
+  //     return state$.map(state => {
+  //       let {label, unit, min, max} = state.props;
+  //       let value = state.value;
+  //       return h('div.labeled-slider', [
+  //         h('span.label', [label + ' ' + value + unit]),
+  //         h('input.slider', {type: 'range', min, max, value})
+  //       ])
+  //     });
+  //   }
+
+  //   let actions = intent(responses.DOM);
+  //   let vtree$ = view(model(responses, actions))
+
+  //   return {
+  //     DOM: vtree$,
+  //     events: {
+  //       newValue: actions.changeVaule$
+  //     }
+  //   }
+  // }
+
+  // let domDriver = CycleDOM.makeDOMDriver('#app', {
+  //   'labeled-slider': labelSlider 
+  // })
+
+  //BIBLE QUIZ
   function renderChoices(choice) {
     return h('ul',[
-      h(choice.one === true ? 'li.choice-one.is-selected' : 'li.choice-one', 'Choice One'),
-      h(choice.two === true ? 'li.choice-two.is-selected' : 'li.choice-two', 'Choice Two'),
-      h(choice.three === true ? 'li.choice-three.is-selected' : 'li.choice-three', 'Choice Three'),
-      h(choice.four === true ? 'li.choice-four.is-selected' : 'li.choice-four', 'Choice Four')
+      h(choice.one === true ? 'li#choice-one.is-selected' : 'li.choice-one', 'Choice One'),
+      h(choice.two === true ? 'li#choice-two.is-selected' : 'li.choice-two', 'Choice Two'),
+      h(choice.three === true ? 'li#choice-three.is-selected' : 'li.choice-three', 'Choice Three'),
+      h(choice.four === true ? 'li#choice-four.is-selected' : 'li.choice-four', 'Choice Four')
     ]);
   }
 
@@ -30,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function() {
         h('div.choices-container', [
           renderChoices(choice)
         ]),
-        h('button.submit', {type:'button'}, 'Submit'),
+        h('button#submit', {type:'button'}, 'Submit'),
         h('div.answer-container', [
           h('div.verse-container', [
             h('div.bible-verse-text', 'Bible Verse Here'),
@@ -54,12 +93,14 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   function intent(DOM) {
+    console.debug('DOM: ', DOM);
+    let click$ = DOM.select('body').events('click').map(log);
     return {
-      choiceOneClick$: DOM.select('.choice-one').events('click').map(ev => {one:true}).map(log),
-      choiceTwoClick$: DOM.select('.choice-two').events('click').map(ev => {two:true}).map(log),
-      choiceThreeClick$: DOM.select('.choice-three').events('click').map(ev => {three:true}).map(log),
-      choiceFourClick$: DOM.select('.choice-four').events('click').map(ev => {four:true}).map(log),
-      submitClick$: DOM.select('.submit').events('click').map(ev => true).map(log)
+      choiceOneClick$: DOM.select('#choice-one').events('click'),
+      choiceTwoClick$: DOM.select('#choice-two').events('click'),
+      choiceThreeClick$: DOM.select('#choice-three').events('click'),
+      choiceFourClick$: DOM.select('#choice-four').events('click'),
+      submitClick$: DOM.select('#submit').events('click')
     };
   }
 
