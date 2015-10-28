@@ -58,31 +58,30 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   function view(state$) {
-    let turn = 0;
     let qObj = game.questions;
     let total = game.questions.length;
-    return state$.map((choice, turn) => 
+    return state$.map((choice) => 
       h('div.quiz-container', [
-        h('pre', JSON.stringify(turn)),
+        h('pre', JSON.stringify(choice.turn)),
         h('div.question-container',[
-          h('div.text', qObj[turn].question),
+          h('div.text', qObj[choice.turn].question),
           h('div.score-container', [
             h('div.completed-questions', [
-              h('span.completed', `${turn+1}`),
+              h('span.completed', `${choice.turn+1}`),
               h('span.total', '/'+`${total}`)
             ]),
             h('div.percent-corrent', '0%')
           ])
         ]),
         h('div.choices-container', [
-          renderChoices(qObj[turn].choices, choice)
+          renderChoices(qObj[choice.turn].choices, choice)
         ]),
         h('div#submit.button', 'Submit'),
         h('div.answer-container', [
           h('div.verse-container', [
             // TODO this needs to be hidden until the user clicks the SUBMIT button
             // and the answer is evalutated correct or incorrect
-            h('a.ref-link', {href: qObj[turn].link, target: '_blank'}, [ qObj[turn].reference ]),
+            h('a.ref-link', {href: qObj[choice.turn].link, target: '_blank'}, [ qObj[choice.turn].reference ]),
           ])
         ])
       ])
@@ -90,10 +89,12 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   function model(actions) {
+    let turn = 0;
     return Cycle.Rx.Observable.combineLatest(
       actions.choice$.startWith(''),
       actions.submitClick$.startWith(false),
-      (choice, submit) => ({ choice, submit })
+      // actions.turn$.startWith(0).scan((a, b) => a + b).map(log),
+      (choice, submit) => ({ choice: (submit === true) ? '' : choice, submit, turn: (submit === true) ? (turn = turn + 1) : turn })
     );
   }
 
@@ -102,6 +103,7 @@ document.addEventListener("DOMContentLoaded", function() {
     return {
       choice$: DOM.select('.choice').events('click').map(ev => ev.target.classList[1]),
       submitClick$: DOM.select('#submit').events('click').map(ev => true)
+      // turn$: DOM.select('#submit').events('click').map(ev => +1)
     };
   }
 
