@@ -2,6 +2,7 @@
 import Cycle from '@cycle/core';
 import {makeDOMDriver, h} from '@cycle/dom';
 import {log} from './helpers'
+import {game} from './game'
 
 document.addEventListener("DOMContentLoaded", function() {
 
@@ -44,32 +45,38 @@ document.addEventListener("DOMContentLoaded", function() {
   // })
 
   //BIBLE QUIZ
-  function renderChoices(choice) {
+  function renderChoices(choices, choice) {
+    console.debug('choice: ', choice);
+    console.debug('choices: ', choices);
     return h('ul',[
-      h(choice.one === true ? 'li#choice-one.is-selected' : 'li.choice-one', 'Choice One'),
-      h(choice.two === true ? 'li#choice-two.is-selected' : 'li.choice-two', 'Choice Two'),
-      h(choice.three === true ? 'li#choice-three.is-selected' : 'li.choice-three', 'Choice Three'),
-      h(choice.four === true ? 'li#choice-four.is-selected' : 'li.choice-four', 'Choice Four')
+      h(choice.choice === 'one' ? 'li.choice.one.is-selected' : 'li.choice.one', choices[0]),
+      h(choice.choice === 'two' ? 'li.choice.two.is-selected' : 'li.choice.two', choices[1]),
+      h(choice.choice === 'three' ? 'li.choice.three.is-selected' : 'li.choice.three', choices[2]),
+      h(choice.choice === 'four' ? 'li.choice.four.is-selected' : 'li.choice.four', choices[3])
     ]);
   }
 
   function view(state$) {
-    return state$.map((choice, completed ) => 
+    let turn = 0;
+    let qObj = game.questions;
+    let total = game.questions.length;
+    return state$.map((choice, turn) => 
       h('div.quiz-container', [
+        h('pre', JSON.stringify(turn)),
         h('div.question-container',[
-          h('div.text', 'Question Text Here'),
+          h('div.text', qObj[turn].question),
           h('div.score-container', [
             h('div.completed-questions', [
-              h('span.completed', completed),
-              h('span.total', '/20')
+              h('span.completed', (turn+1).toString()),
+              h('span.total', '/'+total.toString())
             ]),
             h('div.percent-corrent', '0%')
           ])
         ]),
         h('div.choices-container', [
-          renderChoices(choice)
+          renderChoices(qObj[turn].choices, choice)
         ]),
-        h('button#submit', {type:'button'}, 'Submit'),
+        h('div#submit.button', 'Submit'),
         h('div.answer-container', [
           h('div.verse-container', [
             h('div.bible-verse-text', 'Bible Verse Here'),
@@ -83,24 +90,17 @@ document.addEventListener("DOMContentLoaded", function() {
 
   function model(actions) {
     return Cycle.Rx.Observable.combineLatest(
-      actions.choiceOneClick$.startWith(false),
-      actions.choiceTwoClick$.startWith(false),
-      actions.choiceThreeClick$.startWith(false),
-      actions.choiceFourClick$.startWith(false),
+      actions.choice$.startWith(''),
       actions.submitClick$.startWith(false),
-      (one, two, three, four, submit) => ({ choice: {one,two,three,four}, submit })
+      (choice, submit) => ({ choice, submit })
     );
   }
 
   function intent(DOM) {
     console.debug('DOM: ', DOM);
-    let click$ = DOM.select('body').events('click').map(log);
     return {
-      choiceOneClick$: DOM.select('#choice-one').events('click'),
-      choiceTwoClick$: DOM.select('#choice-two').events('click'),
-      choiceThreeClick$: DOM.select('#choice-three').events('click'),
-      choiceFourClick$: DOM.select('#choice-four').events('click'),
-      submitClick$: DOM.select('#submit').events('click')
+      choice$: DOM.select('.choice').events('click').map(ev => ev.target.classList[1]),
+      submitClick$: DOM.select('#submit').events('click').map(ev => true)
     };
   }
 
