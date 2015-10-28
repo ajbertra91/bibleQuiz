@@ -6,6 +6,7 @@ import {game} from './game'
 
 document.addEventListener("DOMContentLoaded", function() {
 
+  // CUSTOM ELEMENT
   // function labelSlider(responses) {
   //   function intent(DOM) {
   //     return {
@@ -67,8 +68,8 @@ document.addEventListener("DOMContentLoaded", function() {
           h('div.text', qObj[turn].question),
           h('div.score-container', [
             h('div.completed-questions', [
-              h('span.completed', (turn+1).toString()),
-              h('span.total', '/'+total.toString())
+              h('span.completed', `${turn+1}`),
+              h('span.total', '/'+`${total}`)
             ]),
             h('div.percent-corrent', '0%')
           ])
@@ -79,10 +80,10 @@ document.addEventListener("DOMContentLoaded", function() {
         h('div#submit.button', 'Submit'),
         h('div.answer-container', [
           h('div.verse-container', [
-            h('div.bible-verse-text', 'Bible Verse Here'),
-            h('div.bible-verse', 'Mark 8:43')
-          ]),
-          h('div.grade-icon', 'O')
+            // TODO this needs to be hidden until the user clicks the SUBMIT button
+            // and the answer is evalutated correct or incorrect
+            h('a.ref-link', {href: qObj[turn].link, target: '_blank'}, [ qObj[turn].reference ]),
+          ])
         ])
       ])
     )
