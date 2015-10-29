@@ -2,64 +2,108 @@
 import Cycle from '@cycle/core';
 import {makeDOMDriver, h} from '@cycle/dom';
 import {log} from './helpers'
+import {game} from './game'
 
 document.addEventListener("DOMContentLoaded", function() {
 
-  function renderChoices(choice) {
+  // CUSTOM ELEMENT
+  // function labelSlider(responses) {
+  //   function intent(DOM) {
+  //     return {
+  //       changeValue$: DOM.select('.slider').events('input').map(ev => ev.target.value);
+  //     }
+  //   } 
+  //   function model(context, actions) {
+  //     let initialValue$ = context.props.get('initial').first();
+  //     let value$ = initialValue$.concat(newValue$);
+  //     let props$ = context.props.getAll();
+  //     return Rx.Observable.combineLatest(props$, value$, (props, value) => { return {props,value}; });
+  //   }
+  //   function view(state$) {
+  //     return state$.map(state => {
+  //       let {label, unit, min, max} = state.props;
+  //       let value = state.value;
+  //       return h('div.labeled-slider', [
+  //         h('span.label', [label + ' ' + value + unit]),
+  //         h('input.slider', {type: 'range', min, max, value})
+  //       ])
+  //     });
+  //   }
+
+  //   let actions = intent(responses.DOM);
+  //   let vtree$ = view(model(responses, actions))
+
+  //   return {
+  //     DOM: vtree$,
+  //     events: {
+  //       newValue: actions.changeVaule$
+  //     }
+  //   }
+  // }
+
+  // let domDriver = CycleDOM.makeDOMDriver('#app', {
+  //   'labeled-slider': labelSlider 
+  // })
+
+  //BIBLE QUIZ
+  function renderChoices(choices, choice) {
+    console.debug('choice: ', choice);
+    console.debug('choices: ', choices);
     return h('ul',[
-      h(choice.one === true ? 'li.choice-one.is-selected' : 'li.choice-one', 'Choice One'),
-      h(choice.two === true ? 'li.choice-two.is-selected' : 'li.choice-two', 'Choice Two'),
-      h(choice.three === true ? 'li.choice-three.is-selected' : 'li.choice-three', 'Choice Three'),
-      h(choice.four === true ? 'li.choice-four.is-selected' : 'li.choice-four', 'Choice Four')
+      h(choice.choice === 'one' ? 'li.choice.one.is-selected' : 'li.choice.one', choices[0]),
+      h(choice.choice === 'two' ? 'li.choice.two.is-selected' : 'li.choice.two', choices[1]),
+      h(choice.choice === 'three' ? 'li.choice.three.is-selected' : 'li.choice.three', choices[2]),
+      h(choice.choice === 'four' ? 'li.choice.four.is-selected' : 'li.choice.four', choices[3])
     ]);
   }
 
   function view(state$) {
-    return state$.map((choice, completed ) => 
+    let qObj = game.questions;
+    let total = game.questions.length;
+    return state$.map((choice) => 
       h('div.quiz-container', [
+        h('pre', JSON.stringify(choice.turn)),
         h('div.question-container',[
-          h('div.text', 'Question Text Here'),
+          h('div.text', qObj[choice.turn].question),
           h('div.score-container', [
             h('div.completed-questions', [
-              h('span.completed', completed),
-              h('span.total', '/20')
+              h('span.completed', `${choice.turn+1}`),
+              h('span.total', '/'+`${total}`)
             ]),
             h('div.percent-corrent', '0%')
           ])
         ]),
         h('div.choices-container', [
-          renderChoices(choice)
+          renderChoices(qObj[choice.turn].choices, choice)
         ]),
-        h('button.submit', {type:'button'}, 'Submit'),
+        h('div#submit.button', 'Submit'),
         h('div.answer-container', [
           h('div.verse-container', [
-            h('div.bible-verse-text', 'Bible Verse Here'),
-            h('div.bible-verse', 'Mark 8:43')
-          ]),
-          h('div.grade-icon', 'O')
+            // TODO this needs to be hidden until the user clicks the SUBMIT button
+            // and the answer is evalutated correct or incorrect
+            h('a.ref-link', {href: qObj[choice.turn].link, target: '_blank'}, [ qObj[choice.turn].reference ]),
+          ])
         ])
       ])
     )
   }
 
   function model(actions) {
+    let turn = 0;
     return Cycle.Rx.Observable.combineLatest(
-      actions.choiceOneClick$.startWith(false),
-      actions.choiceTwoClick$.startWith(false),
-      actions.choiceThreeClick$.startWith(false),
-      actions.choiceFourClick$.startWith(false),
+      actions.choice$.startWith(''),
       actions.submitClick$.startWith(false),
-      (one, two, three, four, submit) => ({ choice: {one,two,three,four}, submit })
+      // actions.turn$.startWith(0).scan((a, b) => a + b).map(log),
+      (choice, submit) => ({ choice: (submit === true) ? '' : choice, submit, turn: (submit === true) ? (turn = turn + 1) : turn })
     );
   }
 
   function intent(DOM) {
+    console.debug('DOM: ', DOM);
     return {
-      choiceOneClick$: DOM.select('.choice-one').events('click').map(ev => {one:true}).map(log),
-      choiceTwoClick$: DOM.select('.choice-two').events('click').map(ev => {two:true}).map(log),
-      choiceThreeClick$: DOM.select('.choice-three').events('click').map(ev => {three:true}).map(log),
-      choiceFourClick$: DOM.select('.choice-four').events('click').map(ev => {four:true}).map(log),
-      submitClick$: DOM.select('.submit').events('click').map(ev => true).map(log)
+      choice$: DOM.select('.choice').events('click').map(ev => ev.target.classList[1]),
+      submitClick$: DOM.select('#submit').events('click').map(ev => true)
+      // turn$: DOM.select('#submit').events('click').map(ev => +1)
     };
   }
 
