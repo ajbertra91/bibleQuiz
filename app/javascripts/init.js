@@ -61,10 +61,9 @@ document.addEventListener("DOMContentLoaded", function() {
     let qObj = game.questions;
     let total = game.questions.length;
     return state$.map((choice) => 
-      h('div.quiz-container', [
-        h('pre', JSON.stringify(choice.turn)),
-        h('div.question-container',[
-          h('div.text', qObj[choice.turn].question),
+      h('div.quiz-container.jumbotron', [
+        h('div.question-container.container',[
+          h('h1.text', qObj[choice.turn].question),
           h('div.score-container', [
             h('div.completed-questions', [
               h('span.completed', `${choice.turn+1}`),
