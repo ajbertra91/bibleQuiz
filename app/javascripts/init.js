@@ -49,11 +49,11 @@ document.addEventListener("DOMContentLoaded", function() {
   function renderChoices(choices, choice) {
     console.debug('choice: ', choice);
     console.debug('choices: ', choices);
-    return h('ul',[
-      h(choice.choice === 'one' ? 'li.choice.one.is-selected' : 'li.choice.one', choices[0]),
-      h(choice.choice === 'two' ? 'li.choice.two.is-selected' : 'li.choice.two', choices[1]),
-      h(choice.choice === 'three' ? 'li.choice.three.is-selected' : 'li.choice.three', choices[2]),
-      h(choice.choice === 'four' ? 'li.choice.four.is-selected' : 'li.choice.four', choices[3])
+    return h('ul.list-group',[
+      h(choice.choice === 'one' ? 'li.list-group-item.choice.one.is-selected' : 'li.list-group-item.choice.one', choices[0]),
+      h(choice.choice === 'two' ? 'li.list-group-item.choice.two.is-selected' : 'li.list-group-item.choice.two', choices[1]),
+      h(choice.choice === 'three' ? 'li.list-group-item.choice.three.is-selected' : 'li.list-group-item.choice.three', choices[2]),
+      h(choice.choice === 'four' ? 'li.list-group-item.choice.four.is-selected' : 'li.list-group-item.choice.four', choices[3])
     ]);
   }
 
@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function() {
       h('div.quiz-container.jumbotron', [
         h('div.question-container.container',[
           h('h1.text', qObj[choice.turn].question),
-          h('div.score-container', [
+          h('div.score-container.row', [
             h('div.completed-questions', [
               h('span.completed', `${choice.turn+1}`),
               h('span.total', '/'+`${total}`)
@@ -72,12 +72,12 @@ document.addEventListener("DOMContentLoaded", function() {
             h('div.percent-corrent', '0%')
           ])
         ]),
-        h('div.choices-container', [
-          renderChoices(qObj[choice.turn].choices, choice)
+        h('div.choices-container.container', [
+          renderChoices(qObj[choice.turn].choices, choice),
+          h('div#submit.btn.btn-default', 'Submit'),
         ]),
-        h('div#submit.button', 'Submit'),
-        h('div.answer-container', [
-          h('div.verse-container', [
+        h('div.answer-container.container', [
+          h('h3.verse-container.page-header', [
             // TODO this needs to be hidden until the user clicks the SUBMIT button
             // and the answer is evalutated correct or incorrect
             h('a.ref-link', {href: qObj[choice.turn].link, target: '_blank'}, [ qObj[choice.turn].reference ]),
@@ -100,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function() {
   function intent(DOM) {
     console.debug('DOM: ', DOM);
     return {
-      choice$: DOM.select('.choice').events('click').map(ev => ev.target.classList[1]),
+      choice$: DOM.select('.choice').events('click').map(ev => ev.target.classList[2]),
       submitClick$: DOM.select('#submit').events('click').map(ev => true)
       // turn$: DOM.select('#submit').events('click').map(ev => +1)
     };
