@@ -65,6 +65,32 @@ export const game = {
       answer: 1,
       reference: "Galatians 1:13-14",
       link: "https://www.blueletterbible.org/kjv/gal/1/13"
-    }
+    },
+    {
+      question_id: 6,
+      question: "What is a farmer who won't plow because of the cold called in Proverbs?",
+      choices: [
+        "a sluggard",
+        "a wise man",
+        "a fool",
+        "a mocker"
+      ],
+      answer: 0,
+      reference: "Proverbs 20:4",
+      link: "https://www.blueletterbible.org/kjv/pro/20/4"
+    },
+    {
+      question_id: 7,
+      question: "To what does James compare a man who doubts?",
+      choices: [
+        "shifting shadows",
+        "waves of the sea",
+        "leaves blowing in the wind",
+        "an uprooted tree"
+      ],
+      answer: 1,
+      reference: "James 1:6",
+      link: "https://www.blueletterbible.org/kjv/jas/1/6"
+    },
   ]
 };
