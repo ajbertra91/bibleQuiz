@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function() {
   //   return {
   //     DOM: vtree$,
   //     events: {
-  //       newValue: actions.changeVaule$
+  //       newValue: actions.changeValue$
   //     }
   //   }
   // }
@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function() {
       actions.choice$.startWith(''),
       actions.submitClick$.startWith(false),
       // actions.turn$.startWith(0).scan((a, b) => a + b).map(log),
-      (choice, submit) => ({ choice: (submit === true) ? '' : choice, submit, turn: (submit === true) ? (turn = turn + 1) : turn })
+      (choice, submit) => ({ choice: ((submit === true) ? '' : choice), submit, turn: ((submit === true) ? (turn = turn + 1) : turn) })
     );
   }
 
