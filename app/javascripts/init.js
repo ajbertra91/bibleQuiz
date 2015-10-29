@@ -63,13 +63,13 @@ document.addEventListener("DOMContentLoaded", function() {
     return state$.map((choice) => 
       h('div.quiz-container.jumbotron', [
         h('div.question-container.container',[
-          h('h1.text', qObj[choice.turn].question),
-          h('div.score-container.row', [
-            h('div.completed-questions', [
-              h('span.completed', `${choice.turn+1}`),
-              h('span.total', '/'+`${total}`)
+          h('h2.text', qObj[choice.turn].question),
+          h('div.score-container.container', [
+            h('h3.completed-questions.page-header', [
+              h('span.completed.pull-left.', `${choice.turn+1}`),
+              h('span.total.pull-left', '/'+`${total}`),
+              h('span.percent-corrent.pull-right', '0%')
             ]),
-            h('div.percent-corrent', '0%')
           ])
         ]),
         h('div.choices-container.container', [
