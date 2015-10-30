@@ -6,13 +6,13 @@
   "minify": false,
   "liveReload": true,
   "open": true,
-  "port": 8000,
+  "port": 3030,
   "development": {
     "domain": "localhost",
-    "apiRoot": "http://localhost:8000/api",
+    "apiRoot": "http://localhost:3030/api",
     "assetsRoot": "/",
     "socketUrl": "http://localhost:8888",
     "protocol": "http:"
   },
-  "version": "1.0.0"  
+  "version": "1.0.0"
 }
