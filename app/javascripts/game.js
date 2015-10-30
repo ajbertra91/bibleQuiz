@@ -10,7 +10,7 @@ export const game = {
         "and love his brother.",
         "and take up his cross, and follow me."
       ],
-      answer: 4,
+      answer: 3,
       reference: "Mark 8:34",
       link: "https://www.blueletterbible.org/kjv/mar/8/34"
     },

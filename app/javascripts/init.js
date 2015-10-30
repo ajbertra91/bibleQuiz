@@ -198,6 +198,29 @@ document.addEventListener("DOMContentLoaded", function() {
     return choiceElements;
   }
 
+  function renderAnswer(qObj, choice) {
+    if (choice.submit === true) {
+      let choiceNum = 0;
+      if (choice.choice === 'one') choiceNum = 0;
+      if (choice.choice === 'two') choiceNum = 1;
+      if (choice.choice === 'three') choiceNum = 2;
+      if (choice.choice === 'four') choiceNum = 3;
+      if (qObj.answer === choiceNum) {
+        return h('h3.verse-container.page-header', [
+          h('span.glyphicon.glyphicon-ok.pull-right', ''),
+          h('a.ref-link', {href: qObj.link, target: '_blank'}, [ qObj.reference ])
+        ])
+      } else {
+        return h('h3.verse-container.page-header', [
+          h('span.glyphicon.glyphicon-remove.pull-right', ''),
+          h('a.ref-link', {href: qObj.link, target: '_blank'}, [ qObj.reference ])
+        ])
+      }
+    } else {
+      return;
+    }
+  }
+
   function view(state$) {
     let qObj = game.questions;
     let total = game.questions.length;
@@ -217,11 +240,7 @@ document.addEventListener("DOMContentLoaded", function() {
           renderChoices(qObj[choice.turn].choices, choice)
         ]),
         h('div.answer-container.container', [
-          h('h3.verse-container.page-header', [
-            // TODO this needs to be hidden until the user clicks the SUBMIT button
-            // and the answer is evalutated correct or incorrect
-            h('a.ref-link', {href: qObj[choice.turn].link, target: '_blank'}, [ qObj[choice.turn].reference ]),
-          ])
+          renderAnswer(qObj[choice.turn], choice)
         ])
       ])
     )
