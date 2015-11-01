@@ -253,10 +253,23 @@ document.addEventListener("DOMContentLoaded", function() {
       actions.submitClick$.startWith(false),
       actions.nextClick$.startWith(false),
       // actions.turn$.startWith(0).scan((a, b) => a + b).map(log),
-      (choice, submit, next) => ({ choice: ((next === true) ? '' : choice),
-                                   submit: ((next === true) ? false : submit),
-                                   next,
-                                   turn: ((next === true) ? (turn = turn + 1) : turn) })
+      (choice, submit, next) => {
+        if (next === true) {
+          return {
+            choice: '',
+            submit: false,
+            next: false,
+            turn: turn = turn + 1
+          }
+        } else {
+          return {
+            choice,
+            submit,
+            next,
+            turn
+          }
+        }
+      }                             
     );
   }
 
