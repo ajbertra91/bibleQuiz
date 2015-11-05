@@ -16,14 +16,14 @@ System.config({
   },
 
   map: {
-    "@cycle/core": "npm:@cycle/core@4.0.0",
+    "@cycle/core": "npm:@cycle/core@4.0.1",
     "@cycle/dom": "npm:@cycle/dom@6.0.0",
     "angular": "npm:angular@1.4.7",
     "angular-ui-router": "npm:angular-ui-router@0.2.15",
-    "babel": "npm:babel-core@5.8.25",
-    "babel-runtime": "npm:babel-runtime@5.8.25",
-    "core-js": "npm:core-js@1.2.1",
-    "cycleCore": "npm:@cycle/core@4.0.0",
+    "babel": "npm:babel-core@5.8.33",
+    "babel-runtime": "npm:babel-runtime@5.8.29",
+    "core-js": "npm:core-js@1.2.5",
+    "cycleCore": "npm:@cycle/core@4.0.1",
     "cycleDom": "npm:@cycle/dom@6.0.0",
     "text": "github:systemjs/plugin-text@0.0.2",
     "github:jspm/nodelibs-assert@0.1.0": {
@@ -32,18 +32,21 @@ System.config({
     "github:jspm/nodelibs-events@0.1.1": {
       "events": "npm:events@1.0.2"
     },
+    "github:jspm/nodelibs-path@0.1.0": {
+      "path-browserify": "npm:path-browserify@0.0.0"
+    },
     "github:jspm/nodelibs-process@0.1.2": {
       "process": "npm:process@0.11.2"
     },
     "github:jspm/nodelibs-util@0.1.0": {
       "util": "npm:util@0.10.3"
     },
-    "npm:@cycle/core@4.0.0": {
+    "npm:@cycle/core@4.0.1": {
       "process": "github:jspm/nodelibs-process@0.1.2",
-      "rx": "npm:rx@4.0.1"
+      "rx": "npm:rx@4.0.6"
     },
     "npm:@cycle/dom@6.0.0": {
-      "@cycle/core": "npm:@cycle/core@4.0.0",
+      "@cycle/core": "npm:@cycle/core@4.0.1",
       "es6-map": "npm:es6-map@0.1.1",
       "matches-selector": "npm:matches-selector@1.0.0",
       "process": "github:jspm/nodelibs-process@0.1.2",
@@ -61,11 +64,12 @@ System.config({
     "npm:assert@1.3.0": {
       "util": "npm:util@0.10.3"
     },
-    "npm:babel-runtime@5.8.25": {
+    "npm:babel-runtime@5.8.29": {
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
-    "npm:core-js@1.2.1": {
+    "npm:core-js@1.2.5": {
       "fs": "github:jspm/nodelibs-fs@0.1.2",
+      "path": "github:jspm/nodelibs-path@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2",
       "systemjs-json": "github:systemjs/plugin-json@0.1.0"
     },
@@ -76,11 +80,11 @@ System.config({
       "assert": "github:jspm/nodelibs-assert@0.1.0",
       "camelize": "npm:camelize@1.0.0",
       "string-template": "npm:string-template@0.2.1",
-      "xtend": "npm:xtend@4.0.0"
+      "xtend": "npm:xtend@4.0.1"
     },
     "npm:es5-ext@0.10.8": {
       "es6-iterator": "npm:es6-iterator@2.0.0",
-      "es6-symbol": "npm:es6-symbol@3.0.0",
+      "es6-symbol": "npm:es6-symbol@3.0.1",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:es6-iterator@0.1.3": {
@@ -91,7 +95,7 @@ System.config({
     "npm:es6-iterator@2.0.0": {
       "d": "npm:d@0.1.1",
       "es5-ext": "npm:es5-ext@0.10.8",
-      "es6-symbol": "npm:es6-symbol@3.0.0"
+      "es6-symbol": "npm:es6-symbol@3.0.1"
     },
     "npm:es6-map@0.1.1": {
       "d": "npm:d@0.1.1",
@@ -105,7 +109,7 @@ System.config({
       "d": "npm:d@0.1.1",
       "es5-ext": "npm:es5-ext@0.10.8",
       "es6-iterator": "npm:es6-iterator@2.0.0",
-      "es6-symbol": "npm:es6-symbol@3.0.0",
+      "es6-symbol": "npm:es6-symbol@3.0.1",
       "event-emitter": "npm:event-emitter@0.3.4"
     },
     "npm:es6-symbol@0.1.1": {
@@ -116,7 +120,7 @@ System.config({
       "d": "npm:d@0.1.1",
       "es5-ext": "npm:es5-ext@0.10.8"
     },
-    "npm:es6-symbol@3.0.0": {
+    "npm:es6-symbol@3.0.1": {
       "d": "npm:d@0.1.1",
       "es5-ext": "npm:es5-ext@0.10.8"
     },
@@ -140,10 +144,13 @@ System.config({
     "npm:param-case@1.1.1": {
       "sentence-case": "npm:sentence-case@1.1.2"
     },
+    "npm:path-browserify@0.0.0": {
+      "process": "github:jspm/nodelibs-process@0.1.2"
+    },
     "npm:process@0.11.2": {
       "assert": "github:jspm/nodelibs-assert@0.1.0"
     },
-    "npm:rx@4.0.1": {
+    "npm:rx@4.0.6": {
       "process": "github:jspm/nodelibs-process@0.1.2",
       "util": "github:jspm/nodelibs-util@0.1.0"
     },
@@ -161,7 +168,7 @@ System.config({
       "escape-html": "npm:escape-html@1.0.3",
       "param-case": "npm:param-case@1.1.1",
       "virtual-dom": "npm:virtual-dom@2.1.1",
-      "xtend": "npm:xtend@4.0.0"
+      "xtend": "npm:xtend@4.0.1"
     },
     "npm:virtual-dom@2.1.1": {
       "browser-split": "npm:browser-split@0.0.1",

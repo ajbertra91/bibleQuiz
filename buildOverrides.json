@@ -1,5 +1,5 @@
 {
-  "siteTitle": "Bible Quiz",
+  "siteTitle": "Quiz App",
   "platform": "desktop",
   "environment": "development",
   "debug": true,
@@ -11,7 +11,7 @@
     "domain": "localhost",
     "apiRoot": "http://localhost:3030/api",
     "assetsRoot": "/",
-    "socketUrl": "http://localhost:8888",
+    "socketUrl": "http://localhost:3333",
     "protocol": "http:"
   },
   "version": "1.0.0"

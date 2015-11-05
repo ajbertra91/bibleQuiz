@@ -253,6 +253,8 @@ document.addEventListener("DOMContentLoaded", function() {
       actions.submitClick$.startWith(false),
       actions.nextClick$.startWith(false),
       // actions.turn$.startWith(0).scan((a, b) => a + b).map(log),
+      // this object should control the display of the VIEW elements... but it only works the first question
+      // because the combineLatest operator is "storing" the value of the submit$ and next$ ... 
       (choice, submit, next) => {
         if (next === true) {
           return {
