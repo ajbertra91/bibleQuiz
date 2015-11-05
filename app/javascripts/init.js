@@ -167,38 +167,14 @@ document.addEventListener("DOMContentLoaded", function() {
     console.log('in render fn - choice: ', choice);
     console.log('in render fn - choices: ', choices);
     console.log('in render fn - submit: ', submit);
-    let choiceElements;
-    if (choice > 0 && submit === false) {
-      choiceElements = h('div', [
-        h('ul.list-group',[
-          h(choice === 1 ? 'li.list-group-item.choice.one.is-selected' : 'li.list-group-item.choice.one', choices[0]),
-          h(choice === 2 ? 'li.list-group-item.choice.two.is-selected' : 'li.list-group-item.choice.two', choices[1]),
-          h(choice === 3 ? 'li.list-group-item.choice.three.is-selected' : 'li.list-group-item.choice.three', choices[2]),
-          h(choice === 4 ? 'li.list-group-item.choice.four.is-selected' : 'li.list-group-item.choice.four', choices[3])
-        ]),
-        h('div#submit.btn.btn-primary.pull-left', 'Sumbit')
-      ]);
-    } else if (choice > 0 && submit === true) {
-      choiceElements = h('div', [
-        h('ul.list-group',[
-          h(choice === 1 ? 'li.list-group-item.choice.one.is-selected' : 'li.list-group-item.choice.one', choices[0]),
-          h(choice === 2 ? 'li.list-group-item.choice.two.is-selected' : 'li.list-group-item.choice.two', choices[1]),
-          h(choice === 3 ? 'li.list-group-item.choice.three.is-selected' : 'li.list-group-item.choice.three', choices[2]),
-          h(choice === 4 ? 'li.list-group-item.choice.four.is-selected' : 'li.list-group-item.choice.four', choices[3])
-        ]),
-        h('div#next.btn.btn-primary.pull-right', 'Next')
-      ]);
-    } else {
-      choiceElements = h('div', [
-        h('ul.list-group',[
-          h(choice === 1 ? 'li.list-group-item.choice.one.is-selected' : 'li.list-group-item.choice.one', choices[0]),
-          h(choice === 2 ? 'li.list-group-item.choice.two.is-selected' : 'li.list-group-item.choice.two', choices[1]),
-          h(choice === 3 ? 'li.list-group-item.choice.three.is-selected' : 'li.list-group-item.choice.three', choices[2]),
-          h(choice === 4 ? 'li.list-group-item.choice.four.is-selected' : 'li.list-group-item.choice.four', choices[3])
-        ])
-      ]);
-    }
-    return choiceElements;
+    return h('div', [
+      h('ul.list-group',[
+        choices.map((text, i) => h('li.list-group-item.choice.choice'+`${i+1}` + (choice === (i+1) ? '.is-selected' : ''), text))
+      ]),
+      choice > 0 ? h('div#submit.btn.btn-primary.pull-left', 'Sumbit') : '',
+      choice > 0 && submit ? h('div#next.btn.btn-primary.pull-right', 'Next') : ''
+    ]);
+      
   }
 
   function renderAnswer(qObj, choice, submit) {
@@ -279,12 +255,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   function intent(DOM) {
     return {
-      choice$: DOM.select('.choice').events('click').map(ev => ev.target.classList[2]).map((x) => {
-          if (x === 'one') return 1
-          if (x === 'two') return 2
-          if (x === 'three') return 3
-          if (x === 'four') return 4
-        }),
+      choice$: DOM.select('.choice').events('click').map(ev => ev.target.classList[2]).map((x) => x.slice(-1)),
       submitClick$: DOM.select('#submit').events('click').map(ev => true),
       nextClick$: DOM.select('#next').events('click').map(ev => true)
       // turn$: DOM.select('#next').events('click').map(ev => +1)
