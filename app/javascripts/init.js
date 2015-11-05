@@ -6,6 +6,8 @@ import {game} from './game'
 
 document.addEventListener("DOMContentLoaded", function() {
 
+  console.debug('Cycle: ', Cycle);
+
   // CUSTOM ELEMENT
   // function labelSlider(responses) {
   //   function intent(DOM) {
@@ -161,51 +163,47 @@ document.addEventListener("DOMContentLoaded", function() {
   // }
 
   // QUIZ
-  function renderChoices(choices, choice) {
-    console.debug('choice: ', choice);
-    console.debug('choices: ', choices);
+  function renderChoices(choices, choice, submit) {
+    console.log('in render fn - choice: ', choice);
+    console.log('in render fn - choices: ', choices);
+    console.log('in render fn - submit: ', submit);
     let choiceElements;
-    if (choice.choice.length > 0 && choice.submit === false) {
+    if (choice > 0 && submit === false) {
       choiceElements = h('div', [
         h('ul.list-group',[
-          h(choice.choice === 'one' ? 'li.list-group-item.choice.one.is-selected' : 'li.list-group-item.choice.one', choices[0]),
-          h(choice.choice === 'two' ? 'li.list-group-item.choice.two.is-selected' : 'li.list-group-item.choice.two', choices[1]),
-          h(choice.choice === 'three' ? 'li.list-group-item.choice.three.is-selected' : 'li.list-group-item.choice.three', choices[2]),
-          h(choice.choice === 'four' ? 'li.list-group-item.choice.four.is-selected' : 'li.list-group-item.choice.four', choices[3])
+          h(choice === 1 ? 'li.list-group-item.choice.one.is-selected' : 'li.list-group-item.choice.one', choices[0]),
+          h(choice === 2 ? 'li.list-group-item.choice.two.is-selected' : 'li.list-group-item.choice.two', choices[1]),
+          h(choice === 3 ? 'li.list-group-item.choice.three.is-selected' : 'li.list-group-item.choice.three', choices[2]),
+          h(choice === 4 ? 'li.list-group-item.choice.four.is-selected' : 'li.list-group-item.choice.four', choices[3])
         ]),
         h('div#submit.btn.btn-primary.pull-left', 'Sumbit')
       ]);
-    } else if (choice.choice.length > 0 && choice.submit === true) {
+    } else if (choice > 0 && submit === true) {
       choiceElements = h('div', [
         h('ul.list-group',[
-          h(choice.choice === 'one' ? 'li.list-group-item.choice.one.is-selected' : 'li.list-group-item.choice.one', choices[0]),
-          h(choice.choice === 'two' ? 'li.list-group-item.choice.two.is-selected' : 'li.list-group-item.choice.two', choices[1]),
-          h(choice.choice === 'three' ? 'li.list-group-item.choice.three.is-selected' : 'li.list-group-item.choice.three', choices[2]),
-          h(choice.choice === 'four' ? 'li.list-group-item.choice.four.is-selected' : 'li.list-group-item.choice.four', choices[3])
+          h(choice === 1 ? 'li.list-group-item.choice.one.is-selected' : 'li.list-group-item.choice.one', choices[0]),
+          h(choice === 2 ? 'li.list-group-item.choice.two.is-selected' : 'li.list-group-item.choice.two', choices[1]),
+          h(choice === 3 ? 'li.list-group-item.choice.three.is-selected' : 'li.list-group-item.choice.three', choices[2]),
+          h(choice === 4 ? 'li.list-group-item.choice.four.is-selected' : 'li.list-group-item.choice.four', choices[3])
         ]),
         h('div#next.btn.btn-primary.pull-right', 'Next')
       ]);
     } else {
       choiceElements = h('div', [
         h('ul.list-group',[
-          h(choice.choice === 'one' ? 'li.list-group-item.choice.one.is-selected' : 'li.list-group-item.choice.one', choices[0]),
-          h(choice.choice === 'two' ? 'li.list-group-item.choice.two.is-selected' : 'li.list-group-item.choice.two', choices[1]),
-          h(choice.choice === 'three' ? 'li.list-group-item.choice.three.is-selected' : 'li.list-group-item.choice.three', choices[2]),
-          h(choice.choice === 'four' ? 'li.list-group-item.choice.four.is-selected' : 'li.list-group-item.choice.four', choices[3])
+          h(choice === 1 ? 'li.list-group-item.choice.one.is-selected' : 'li.list-group-item.choice.one', choices[0]),
+          h(choice === 2 ? 'li.list-group-item.choice.two.is-selected' : 'li.list-group-item.choice.two', choices[1]),
+          h(choice === 3 ? 'li.list-group-item.choice.three.is-selected' : 'li.list-group-item.choice.three', choices[2]),
+          h(choice === 4 ? 'li.list-group-item.choice.four.is-selected' : 'li.list-group-item.choice.four', choices[3])
         ])
       ]);
     }
     return choiceElements;
   }
 
-  function renderAnswer(qObj, choice) {
-    if (choice.submit === true) {
-      let choiceNum = 0;
-      if (choice.choice === 'one') choiceNum = 0;
-      if (choice.choice === 'two') choiceNum = 1;
-      if (choice.choice === 'three') choiceNum = 2;
-      if (choice.choice === 'four') choiceNum = 3;
-      if (qObj.answer === choiceNum) {
+  function renderAnswer(qObj, choice, submit) {
+    if (submit === true) {
+      if (qObj.answer === (choice - 1)) {
         return h('h3.verse-container.page-header', [
           h('span.glyphicon.glyphicon-ok.pull-right', ''),
           h('a.ref-link', {href: qObj.link, target: '_blank'}, [ qObj.reference ])
@@ -224,23 +222,23 @@ document.addEventListener("DOMContentLoaded", function() {
   function view(state$) {
     let qObj = game.questions;
     let total = game.questions.length;
-    return state$.map((choice) => 
+    return state$.map(({choice, submit, next, turn}) => 
       h('div.quiz-container.jumbotron', [
         h('div.question-container.container',[
-          h('h2.text', qObj[choice.turn].question),
+          h('h2.text', qObj[turn].question),
           h('div.score-container.container', [
             h('h3.completed-questions.page-header', [
-              h('span.completed.pull-left.', `${choice.turn+1}`),
+              h('span.completed.pull-left.', `${turn+1}`),
               h('span.total.pull-left', '/'+`${total}`),
               h('span.percent-corrent.pull-right', '0%')
             ]),
           ])
         ]),
         h('div.choices-container.container', [
-          renderChoices(qObj[choice.turn].choices, choice)
+          renderChoices(qObj[turn].choices, choice, submit)
         ]),
         h('div.answer-container.container', [
-          renderAnswer(qObj[choice.turn], choice)
+          renderAnswer(qObj[turn], choice, submit)
         ])
       ])
     )
@@ -249,16 +247,20 @@ document.addEventListener("DOMContentLoaded", function() {
   function model(actions) {
     let turn = 0;
     return Cycle.Rx.Observable.combineLatest(
-      actions.choice$.startWith(''),
+      actions.choice$.startWith(0),
       actions.submitClick$.startWith(false),
       actions.nextClick$.startWith(false),
       // actions.turn$.startWith(0).scan((a, b) => a + b).map(log),
       // this object should control the display of the VIEW elements... but it only works the first question
       // because the combineLatest operator is "storing" the value of the submit$ and next$ ... 
       (choice, submit, next) => {
+        console.debug('choice: ', choice);
+        console.debug('submit: ', submit);
+        console.debug('next: ', next);
+        console.debug('turn: ', turn);
         if (next === true) {
           return {
-            choice: '',
+            choice: 0,
             submit: false,
             next: false,
             turn: turn = turn + 1
@@ -271,17 +273,21 @@ document.addEventListener("DOMContentLoaded", function() {
             turn
           }
         }
-      }                             
+      }
     );
   }
 
   function intent(DOM) {
-    console.debug('DOM: ', DOM);
     return {
-      choice$: DOM.select('.choice').events('click').map(ev => ev.target.classList[2]),
+      choice$: DOM.select('.choice').events('click').map(ev => ev.target.classList[2]).map((x) => {
+          if (x === 'one') return 1
+          if (x === 'two') return 2
+          if (x === 'three') return 3
+          if (x === 'four') return 4
+        }),
       submitClick$: DOM.select('#submit').events('click').map(ev => true),
       nextClick$: DOM.select('#next').events('click').map(ev => true)
-      // turn$: DOM.select('#submit').events('click').map(ev => +1)
+      // turn$: DOM.select('#next').events('click').map(ev => +1)
     };
   }
 
