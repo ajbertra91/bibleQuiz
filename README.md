@@ -1,4 +1,4 @@
-# Bible Quiz Game
+# Trivia Quiz Game
 A simple quiz game.
 
 ##Stack
