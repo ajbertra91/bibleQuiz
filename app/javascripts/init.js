@@ -7,14 +7,14 @@ import {game} from './game'
 
 document.addEventListener("DOMContentLoaded", function() {
 
-  console.debug('Cycle: ', Cycle);
-  console.debug('Rx: ', Rx);
+  // console.debug('Cycle: ', Cycle);
+  // console.debug('Rx: ', Rx);
 
   // QUIZ
   function renderChoices(choices, choice, submit) {
-    console.log('in render fn - choice: ', choice);
-    console.log('in render fn - choices: ', choices);
-    console.log('in render fn - submit: ', submit);
+    // console.log('in render fn - choice: ', choice);
+    // console.log('in render fn - choices: ', choices);
+    // console.log('in render fn - submit: ', submit);
     return h('div', [
       h('ul.list-group',[
         choices.map((text, i) => {
@@ -26,13 +26,13 @@ document.addEventListener("DOMContentLoaded", function() {
         })
       ]),
       choice > 0 ? h('div#submit.btn.btn-primary.pull-left', 'Sumbit') : '',
-      choice > 0 && submit ? h('div#next.btn.btn-primary.pull-right', 'Next') : ''
+      choice > 0 && submit > 0 ? h('div#next.btn.btn-primary.pull-right', 'Next') : ''
     ]);
       
   }
 
   function renderAnswer(qObj, choice, submit) {
-    if (submit === true) {
+    if (submit > 0) {
       if (qObj.answer === (choice - 1)) {
         return h('h3.verse-container.page-header', [
           h('span.glyphicon.glyphicon-ok.pull-right', ''),
@@ -52,7 +52,6 @@ document.addEventListener("DOMContentLoaded", function() {
   function view(state$) {
     let qObj = game.questions;
     let total = game.questions.length;
-    // return state$
     return state$.map(({choice, submit, next, turn}) => 
       h('div.quiz-container.jumbotron', [
         h('div.question-container.container',[
@@ -79,20 +78,20 @@ document.addEventListener("DOMContentLoaded", function() {
     let turn = 0;
     return Rx.Observable.combineLatest(
       actions.choice$.startWith(0),
-      actions.submitClick$.startWith(false),
-      actions.nextClick$.startWith(false),
+      actions.submitClick$.startWith(0),
+      actions.nextClick$.startWith(0),
       // this object should control the display of the VIEW elements... but it only works the first question
       // because the combineLatest operator is using the last emitted values from submit$ and next$ ... 
       (choice, submit, next) => {
-        console.debug('choice: ', choice);
-        console.debug('submit: ', submit);
-        console.debug('next: ', next);
-        console.debug('turn: ', turn);
-        if (next === true) {
+        // console.debug('choice: ', choice);
+        // console.debug('submit: ', submit);
+        // console.debug('next: ', next);
+        // console.debug('turn: ', turn);
+        if (next > 0) {
           return {
             choice: 0,
-            submit: false,
-            next: false,
+            submit: 0,
+            next: 0,
             turn: turn = turn + 1
           }
         } else {
@@ -110,8 +109,8 @@ document.addEventListener("DOMContentLoaded", function() {
   function intent(DOM) {
     return {
       choice$: DOM.select('.choice').events('click').map(ev => ev.target.classList[2]).map((x) => x.slice(-1)),
-      submitClick$: DOM.select('#submit').events('click').map(ev => true),
-      nextClick$: DOM.select('#next').events('click').map(ev => true)
+      submitClick$: DOM.select('#submit').events('click').map(ev => ev.detail),
+      nextClick$: DOM.select('#next').events('click').map(ev => ev.detail)
     };
   }
 

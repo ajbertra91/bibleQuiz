@@ -11,3 +11,5 @@ npm, JSPM, Babel, Cycle.js (with RxJS), Gulp (in ES6)
 ##Run
 `gulp serve`
 if it says Cannot GET /index.html hard refresh the browser to fix.
+
+won't work past first question.
