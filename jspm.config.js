@@ -16,15 +16,14 @@ System.config({
   },
 
   map: {
-    "@cycle/core": "npm:@cycle/core@4.0.1",
+    "@cycle/core": "npm:@cycle/core@5.0.1",
     "@cycle/dom": "npm:@cycle/dom@6.0.0",
-    "angular": "npm:angular@1.4.7",
-    "angular-ui-router": "npm:angular-ui-router@0.2.15",
     "babel": "npm:babel-core@5.8.33",
     "babel-runtime": "npm:babel-runtime@5.8.29",
     "core-js": "npm:core-js@1.2.5",
     "cycleCore": "npm:@cycle/core@4.0.1",
     "cycleDom": "npm:@cycle/dom@6.0.0",
+    "rx": "npm:rx@4.0.6",
     "text": "github:systemjs/plugin-text@0.0.2",
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.3.0"
@@ -43,6 +42,9 @@ System.config({
     },
     "npm:@cycle/core@4.0.1": {
       "process": "github:jspm/nodelibs-process@0.1.2",
+      "rx": "npm:rx@4.0.6"
+    },
+    "npm:@cycle/core@5.0.1": {
       "rx": "npm:rx@4.0.6"
     },
     "npm:@cycle/dom@6.0.0": {

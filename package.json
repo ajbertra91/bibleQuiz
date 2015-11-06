@@ -49,8 +49,10 @@
   "jspm": {
     "configFile": "jspm.config.js",
     "dependencies": {
+      "@cycle/core": "npm:@cycle/core@^5.0.1",
       "cycleCore": "npm:@cycle/core@^4.0.0",
       "cycleDom": "npm:@cycle/dom@^6.0.0",
+      "rx": "npm:rx@^4.0.6",
       "text": "github:systemjs/plugin-text@^0.0.2"
     },
     "devDependencies": {
