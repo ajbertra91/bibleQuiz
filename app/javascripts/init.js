@@ -229,32 +229,12 @@ document.addEventListener("DOMContentLoaded", function() {
     )
   }
 
-  // function model(actions) {
-  //   let turn = 0;
-  //   return Rx.Observable.merge(
-  //     actions.choice$.startWith(0),
-  //     actions.submitClick$.startWith(false),
-  //     actions.nextClick$.startWith(false)
-  //     .map(x => { 
-  //       console.debug('x: ', x);
-  //       return x
-  //       // return {
-  //       //   choice,
-  //       //   submit,
-  //       //   next,
-  //       //   turn
-  //       // }
-  //     })
-  //   );
-  // }
-
   function model(actions) {
     let turn = 0;
     return Rx.Observable.combineLatest(
       actions.choice$.startWith(0),
       actions.submitClick$.startWith(false),
       actions.nextClick$.startWith(false),
-      // actions.turn$.startWith(0).scan((a, b) => a + b).map(log),
       // this object should control the display of the VIEW elements... but it only works the first question
       // because the combineLatest operator is "storing" the value of the submit$ and next$ ... 
       (choice, submit, next) => {
@@ -286,7 +266,6 @@ document.addEventListener("DOMContentLoaded", function() {
       choice$: DOM.select('.choice').events('click').map(ev => ev.target.classList[2]).map((x) => x.slice(-1)),
       submitClick$: DOM.select('#submit').events('click').map(ev => true),
       nextClick$: DOM.select('#next').events('click').map(ev => true)
-      // turn$: DOM.select('#next').events('click').map(ev => +1)
     };
   }
 
