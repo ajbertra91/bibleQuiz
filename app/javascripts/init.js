@@ -1,5 +1,6 @@
 'use strict';
 import Cycle from '@cycle/core';
+import Rx from 'rx';
 import {makeDOMDriver, h} from '@cycle/dom';
 import {log} from './helpers'
 import {game} from './game'
@@ -7,6 +8,7 @@ import {game} from './game'
 document.addEventListener("DOMContentLoaded", function() {
 
   console.debug('Cycle: ', Cycle);
+  console.debug('Rx: ', Rx);
 
   // CUSTOM ELEMENT
   // function labelSlider(responses) {
@@ -169,7 +171,13 @@ document.addEventListener("DOMContentLoaded", function() {
     console.log('in render fn - submit: ', submit);
     return h('div', [
       h('ul.list-group',[
-        choices.map((text, i) => h('li.list-group-item.choice.choice'+`${i+1}` + (choice === (i+1) ? '.is-selected' : ''), text))
+        choices.map((text, i) => {
+          if (choice - 1 === i) {
+            return h(`li.list-group-item.choice.choice${i+1}.is-selected`, text)
+          } else {
+            return h(`li.list-group-item.choice.choice${i+1}`, text)
+          }
+        })
       ]),
       choice > 0 ? h('div#submit.btn.btn-primary.pull-left', 'Sumbit') : '',
       choice > 0 && submit ? h('div#next.btn.btn-primary.pull-right', 'Next') : ''
@@ -198,6 +206,7 @@ document.addEventListener("DOMContentLoaded", function() {
   function view(state$) {
     let qObj = game.questions;
     let total = game.questions.length;
+    // return state$
     return state$.map(({choice, submit, next, turn}) => 
       h('div.quiz-container.jumbotron', [
         h('div.question-container.container',[
@@ -220,42 +229,28 @@ document.addEventListener("DOMContentLoaded", function() {
     )
   }
 
-  function model(actions) {
-    let turn = 0;
-    return Cycle.Rx.Observable.withLatestFrom(
-      actions.choice$.startWith(0),
-      actions.submitClick$.startWith(false),
-      actions.nextClick$.startWith(false),
-      // actions.turn$.startWith(0).scan((a, b) => a + b).map(log),
-      // this object should control the display of the VIEW elements... but it only works the first question
-      // because the combineLatest operator is "storing" the value of the submit$ and next$ ... 
-      (choice, submit, next) => {
-        console.debug('choice: ', choice);
-        console.debug('submit: ', submit);
-        console.debug('next: ', next);
-        console.debug('turn: ', turn);
-        if (next === true) {
-          return {
-            choice: 0,
-            submit: false,
-            next: false,
-            turn: turn = turn + 1
-          }
-        } else {
-          return {
-            choice,
-            submit,
-            next,
-            turn
-          }
-        }
-      }
-    );
-  }
+  // function model(actions) {
+  //   let turn = 0;
+  //   return Rx.Observable.merge(
+  //     actions.choice$.startWith(0),
+  //     actions.submitClick$.startWith(false),
+  //     actions.nextClick$.startWith(false)
+  //     .map(x => { 
+  //       console.debug('x: ', x);
+  //       return x
+  //       // return {
+  //       //   choice,
+  //       //   submit,
+  //       //   next,
+  //       //   turn
+  //       // }
+  //     })
+  //   );
+  // }
 
   function model(actions) {
     let turn = 0;
-    return Cycle.Rx.Observable.combineLatest(
+    return Rx.Observable.combineLatest(
       actions.choice$.startWith(0),
       actions.submitClick$.startWith(false),
       actions.nextClick$.startWith(false),
