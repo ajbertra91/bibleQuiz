@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function() {
       actions.submitClick$.startWith(false),
       actions.nextClick$.startWith(false),
       // this object should control the display of the VIEW elements... but it only works the first question
-      // because the combineLatest operator is "storing" the value of the submit$ and next$ ... 
+      // because the combineLatest operator is using the last emitted values from submit$ and next$ ... 
       (choice, submit, next) => {
         console.debug('choice: ', choice);
         console.debug('submit: ', submit);
