@@ -60,5 +60,8 @@
       "babel-runtime": "npm:babel-runtime@^5.8.24",
       "core-js": "npm:core-js@^1.2.1"
     }
+  },
+  "devDependencies": {
+    "gulp-sass": "^2.1.0"
   }
 }
