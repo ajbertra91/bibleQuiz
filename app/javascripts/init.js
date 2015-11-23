@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         .fromArray(game.questions)
                         .zip(actions.nextClick$.startWith(1), (a, b) => a);
 
-    return Rx.Observable.combineLatest(
+    const model$ = Rx.Observable.combineLatest(
       actions.choice$.startWith(0),
       actions.submitClick$.startWith(0),
       actions.nextClick$.startWith(0),
@@ -107,18 +107,16 @@ document.addEventListener("DOMContentLoaded", function() {
       // this object should control the display of the VIEW elements... but it only works the first question
       // because the combineLatest operator is using the last emitted values from submit$ and next$ ... 
       (choice, submit, next, q) => {
-        console.debug('choice: ', choice);
-        console.debug('submit: ', submit);
-        console.debug('next: ', next);
-        console.debug('q: ', q);
         return {
-          choice,
+          choice: parseInt(choice),
           submit,
           next,
           q
         }
       }
-    );
+    ).map(log);
+
+    return model$;
   }
 
   // function model(actions) {
