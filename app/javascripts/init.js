@@ -75,34 +75,16 @@ document.addEventListener("DOMContentLoaded", function() {
     )
   }
 
-  // function model(actions) {
-  //   let turn = 0;
-  //   return actions.nextClick$.startWith(0).withLatestFrom(
-  //     actions.choice$.startWith(0),
-  //     actions.submitClick$.startWith(0),
-  //     (choice, submit, next) => {
-  //       console.debug('choice: ', choice);
-  //       console.debug('submit: ', submit);
-  //       console.debug('next: ', next);
-  //       return {
-  //         choice,
-  //         submit,
-  //         next,
-  //         turn
-  //       }
-  //     }
-  //   );
-  // }
-
   function model(actions) {
-    const question$ = Rx.Observable
-                        .fromArray(game.questions)
-                        .zip(actions.nextClick$.startWith(1), (a, b) => a);
+    const choice$ = actions.choice$.startWith(0);
+    const submit$ = actions.submitClick$.startWith(0);
+    const next$ = actions.nextClick$.startWith(0).scan((a,b) => a+b);
+    const question$ = Rx.Observable.fromArray(game.questions).zip(next$, (a, b) => a);
 
-    const model$ = Rx.Observable.combineLatest(
-      actions.choice$.startWith(0),
-      actions.submitClick$.startWith(0),
-      actions.nextClick$.startWith(0),
+    return Rx.Observable.combineLatest(
+      choice$,
+      submit$,
+      next$,
       question$,
       // this object should control the display of the VIEW elements... but it only works the first question
       // because the combineLatest operator is using the last emitted values from submit$ and next$ ... 
@@ -115,47 +97,13 @@ document.addEventListener("DOMContentLoaded", function() {
         }
       }
     ).map(log);
-
-    return model$;
   }
-
-  // function model(actions) {
-  //   let turn = 0;
-  //   return Rx.Observable.combineLatest(
-  //     actions.choice$.startWith(0),
-  //     actions.submitClick$.startWith(0),
-  //     actions.nextClick$.startWith(0),
-  //     // this object should control the display of the VIEW elements... but it only works the first question
-  //     // because the combineLatest operator is using the last emitted values from submit$ and next$ ... 
-  //     (choice, submit, next) => {
-  //       console.debug('choice: ', choice);
-  //       console.debug('submit: ', submit);
-  //       console.debug('next: ', next);
-  //       console.debug('turn: ', turn);
-  //       if (next > 0) {
-  //         return {
-  //           choice: 0,
-  //           submit: 0,
-  //           next: 0,
-  //           turn: turn = turn + 1
-  //         }
-  //       } else {
-  //         return {
-  //           choice,
-  //           submit,
-  //           next,
-  //           turn
-  //         }
-  //       }
-  //     }
-  //   );
-  // }
 
   function intent(DOM) {
     return {
       choice$: DOM.select('.choice').events('click').map(ev => ev.target.classList[2]).map((x) => x.slice(-1)),
       submitClick$: DOM.select('#submit').events('click').map(ev => ev.detail),
-      nextClick$: DOM.select('#next').events('click').map(ev => +1).scan((a,b) => a+b)
+      nextClick$: DOM.select('#next').events('click').map(ev => +1)
     };
   }
 
