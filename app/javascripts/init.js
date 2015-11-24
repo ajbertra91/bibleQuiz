@@ -12,9 +12,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // QUIZ
   function renderChoices(choices, choice, submit) {
-    // console.log('in render fn - choice: ', choice);
-    // console.log('in render fn - choices: ', choices);
-    // console.log('in render fn - submit: ', submit);
+    console.debug('choices: ', choices);
+    console.debug('choice: ', choice);
+    // console.debug('sumbit: ', sumbit);
     return h('div', [
       h('ul.list-group',[
         choices.map((text, i) => {
@@ -53,13 +53,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
   function view(state$) {
     let total = game.questions.length;
-    return state$.map(({choice, submit, next, q}) => 
+    return state$.map(({choice, submit, turn, q}) => 
       h('div.quiz-container.jumbotron', [
         h('div.question-container.container',[
           h('h2.text', q.question),
           h('div.score-container.container', [
             h('h3.completed-questions.page-header', [
-              h('span.completed.pull-left.', `${next+1}`),
+              h('span.completed.pull-left.', `${turn+1}`),
               h('span.total.pull-left', '/'+`${total}`),
               h('span.percent-corrent.pull-right', '0%')
             ]),
@@ -76,23 +76,23 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   function model(actions) {
-    const choice$ = actions.choice$.startWith(0);
-    const submit$ = actions.submitClick$.startWith(0);
-    const next$ = actions.nextClick$.startWith(0).scan((a,b) => a+b);
-    const question$ = Rx.Observable.fromArray(game.questions).zip(next$, (a, b) => a);
+    const choice$ = actions.choice$.startWith(0).map(x => parseInt(x)).do(x => console.log('choice$: ', x));
+    const submit$ = actions.submitClick$.startWith(0).do(x => console.log('submit$: ', x));
+    const turn$ = actions.nextClick$.startWith(0).scan((a,b) => a+b).do(x => console.log('turn$: ', x));
+    const question$ = Rx.Observable.fromArray(game.questions).zip(turn$, (a, b) => a).do(x => console.log('question$: ', x));
 
     return Rx.Observable.combineLatest(
       choice$,
       submit$,
-      next$,
+      turn$,
       question$,
       // this object should control the display of the VIEW elements... but it only works the first question
       // because the combineLatest operator is using the last emitted values from submit$ and next$ ... 
-      (choice, submit, next, q) => {
+      (choice, submit, turn, q) => {
         return {
-          choice: parseInt(choice),
+          choice,
           submit,
-          next,
+          turn,
           q
         }
       }
@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function() {
   function intent(DOM) {
     return {
       choice$: DOM.select('.choice').events('click').map(ev => ev.target.classList[2]).map((x) => x.slice(-1)),
-      submitClick$: DOM.select('#submit').events('click').map(ev => ev.detail),
+      submitClick$: DOM.select('#submit').events('click').map(ev => +1),
       nextClick$: DOM.select('#next').events('click').map(ev => +1)
     };
   }
